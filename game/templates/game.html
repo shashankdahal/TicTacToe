@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Tic Tac Toe</title>
+    <script src="{% static 'js/game.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <div id="game-board">
+        {% for row in game.board %}
+            <div class="row">
+                {% for cell in row %}
+                    <div class="cell">{{ cell }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <button id="reset-button">Reset Game</button>
+</body>
+</html>
