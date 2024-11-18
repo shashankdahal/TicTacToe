@@ -1,3 +1,2 @@
 # TicTacToe
-A test project
-Version 1 in the works.
+This is version 2. In the makes in Django framework.
