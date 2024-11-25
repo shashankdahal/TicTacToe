@@ -17,8 +17,28 @@ print("""
             Press 3 To Exit
             *************************************
             """)
-option = int(input("1 or 2 \n"))
-if option == 1:
+option = int(input("1 or 2 or 3 \n"))
+
+if option == 2:
+    print("""
+    *************************************
+           RULES :
+      - 2 Player mode game. Player 1 to be alloted X and second player O
+
+      - Enter the player names
+
+      - The game is over when 3 pairs of same symbols are aligned, someone wins and if all 9 boxes are filled the game is draw and over.
+      
+      - The game is based using a 3x3 Matrix where the input fields are the rows and columns. The user is prompted to enter the row number
+        and the column number for their symbol. 
+
+      - Valid entries are only X and O. The game crashes for any invalid input of numbers exceeding 3.
+    *************************************    
+
+           """)
+    play = input(" #####TO PLAY GAME PRESS P#####\n")
+
+if option == 1 or play == "p" or play=="P":
     #creating a 3x3 empty matrix as an interface for playing Tictactoe
     space_matrix = pd.DataFrame([[' ' for _ in range(3)] for _ in range(3)])
     print(space_matrix)
@@ -112,22 +132,6 @@ if option == 1:
     #Reseting the board after game over
     space_matrix = pd.DataFrame([[' ' for _ in range(3)] for _ in range(3)])
 
-if option == 2:
-     print("""
-    *************************************
-           RULES :
-      - 2 Player mode game. Player 1 to be alloted X and second player O
-
-      - Enter the player names
-
-      - The game is over when 3 pairs of same symbols are aligned, someone wins and if all 9 boxes are filled the game is draw and over.
-      
-      - The game is based using a 3x3 Matrix where the input fields are the rows and columns. The user is prompted to enter the row number
-        and the column number for their symbol. 
-
-      - Valid entries are only X and O. The game crashes for any invalid input of numbers exceeding 3.
-    *************************************       
-           """)
 
 if option == 3:
      exit()
