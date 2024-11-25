@@ -10,9 +10,9 @@ print("""
 *************************************
       
       RULES :
-      -
-      -
-      -
+      - 2 Player mode game. Player 1 to be alloted X and second player Y
+      - Enter the player names
+      - The game is over when 3 pairs of same symbols are aligned, someone wins and if all 9 boxes are filled the game is draw and over.
 """)
 print("""
             *************************************
