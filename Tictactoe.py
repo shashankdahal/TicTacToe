@@ -9,17 +9,12 @@ print("""
 *                                   *
 *************************************
       
-      RULES :
-      - 2 Player mode game. Player 1 to be alloted X and second player Y
-      - Enter the player names
-      - The game is over when 3 pairs of same symbols are aligned, someone wins and if all 9 boxes are filled the game is draw and over.
-      - The game is based using a 3x3 Matrix where the input fields are the rows and columns. The user is prompted to enter the row number
-        and the column number for their symbol. Valid entries are only X and O. The game crashes for any invalid input of numbers exceeding 3.
 """)
 print("""
             *************************************
             Press 1 To Play Game
-            Press 2 To Exit
+            Press 2 To see Rules
+            Press 3 To Exit
             *************************************
             """)
 option = int(input("1 or 2 \n"))
@@ -118,5 +113,22 @@ if option == 1:
     space_matrix = pd.DataFrame([[' ' for _ in range(3)] for _ in range(3)])
 
 if option == 2:
+     print("""
+    *************************************
+           RULES :
+      - 2 Player mode game. Player 1 to be alloted X and second player O
+
+      - Enter the player names
+
+      - The game is over when 3 pairs of same symbols are aligned, someone wins and if all 9 boxes are filled the game is draw and over.
+      
+      - The game is based using a 3x3 Matrix where the input fields are the rows and columns. The user is prompted to enter the row number
+        and the column number for their symbol. 
+
+      - Valid entries are only X and O. The game crashes for any invalid input of numbers exceeding 3.
+    *************************************       
+           """)
+
+if option == 3:
      exit()
      
