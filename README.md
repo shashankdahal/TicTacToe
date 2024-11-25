@@ -1,5 +1,7 @@
 # TicTacToe
-A test project
-Version 1 consists of a simple python file in which Tic tac toe is played by entering rows and columns in the places where the player X goes first.
+TicTacToe simple game design 
+Version 1 - 
+The first version is a terminal based game design made in python. Instructions are followed in the Readme of version 1.
 
-Version 2 is in the works where it is based of Django architecture and with a GUI to play.
+Version 2 -
+This is a version made using a Django framework. This is on the works and still incomplete.
