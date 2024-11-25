@@ -1,3 +1,2 @@
 # TicTacToe
-This is the first test version. Here The game is played within the python file. To play the game simply download the code and play. 
-This is a very simple version and updates are coming.
+Version 1 of a basic TICTACTOE game. This version is a simple terminal based approach for TICTACTOE. The Rules are defined in the game itself. This is a two player mode game with 9 boxes. The requirements.txt file contains the all dependencies needed in this game.
