@@ -13,6 +13,8 @@ print("""
       - 2 Player mode game. Player 1 to be alloted X and second player Y
       - Enter the player names
       - The game is over when 3 pairs of same symbols are aligned, someone wins and if all 9 boxes are filled the game is draw and over.
+      - The game is based using a 3x3 Matrix where the input fields are the rows and columns. The user is prompted to enter the row number
+        and the column number for their symbol. Valid entries are only X and O. The game crashes for any invalid input of numbers exceeding 3.
 """)
 print("""
             *************************************
@@ -25,19 +27,25 @@ if option == 1:
     #creating a 3x3 empty matrix as an interface for playing Tictactoe
     space_matrix = pd.DataFrame([[' ' for _ in range(3)] for _ in range(3)])
     print(space_matrix)
+
     #variable declaration
     i=0 #identifier if game is over or not, i.e all spaces filled or not
     game_won = False #bollean field to break if game is won or not
+
+
     #input players
     p1= input("Player first name for symbol X \n")
     p2= input("Player second name for symbol O \n")
-    #9 is the total inputs
+
+    #9 is the total inputs spaces
     while i < 9:
         j=1 #check variable. 1 is for player 1 and 0 is for player 2
         if j== 1: #condition for player 1 to put X
+
             print("********player",p1,"***********")
             row = int(input(f"enter the row (1, 2, or 3): ")) - 1 #row variable of matrix
             col = int(input(f"enter the column (1, 2, or 3): ")) - 1 #column variable of matrix
+
             if space_matrix.iloc[row, col] == ' ': #using only unoccupied spaces
                 space_matrix.iloc[row, col] = 'X' #assign the row and col
                 print(f"\nUpdated matrix after placing 'X':")
