@@ -12,7 +12,7 @@ How to download and play the game :
 **Step 1**: Clone the Repository
 First, clone the repository to your local machine. Open your terminal and run:
 
-bash
+
 git clone https://github.com/shashankdahal/TicTacToe
 
 **Step 2**: Checkout the v1 Version :
