@@ -1,26 +1,61 @@
 import pandas as pd
-import numpy
+import numpy as np
 import os
-os.system('cls' if os.name == 'nt' else 'clear')
-print("""
-*************************************
-*                                   *
-*     WELCOME TO MY TICTACTOE       *
-*                                   *
-*************************************
-      
-""")
-print("""
-            *************************************
-            Press 1 To Play Game
-            Press 2 To see Rules
-            Press 3 To Exit
-            *************************************
-            """)
-option = int(input("1 or 2 or 3 \n"))
 
-if option == 2:
+def print_board(board):
+    """Print the Tic-Tac-Toe board."""
+    print(board.to_string(header=False))
+
+def check_winner(board, symbol):
+    """Check if a player has won."""
+    # Check rows and columns
+    for i in range(3):
+        if all(board.iloc[i, :] == symbol) or all(board.iloc[:, i] == symbol):
+            return True
+    # Check diagonals
+    if board.iloc[0, 0] == board.iloc[1, 1] == board.iloc[2, 2] == symbol:
+        return True
+    if board.iloc[0, 2] == board.iloc[1, 1] == board.iloc[2, 0] == symbol:
+        return True
+    return False
+
+def get_player_input(player_name, board):
+    """Get valid row and column input from player."""
+    while True:
+        try:
+            row = int(input(f"{player_name}, enter the row (1, 2, or 3): ")) - 1
+            col = int(input(f"{player_name}, enter the column (1, 2, or 3): ")) - 1
+            if row not in range(3) or col not in range(3):
+                print("Invalid input! Row and column must be between 1 and 3.")
+            elif board.iloc[row, col] != '|':
+                print("Invalid move! That spot is already taken.")
+            else:
+                return row, col
+        except ValueError:
+            print("Invalid input! Please enter numeric values for row and column.")
+
+def main():
+    os.system('cls' if os.name == 'nt' else 'clear')
     print("""
+    *************************************
+    *                                   *
+    *     WELCOME TO MY TICTACTOE       *
+    *                                   *
+    *************************************
+    """)
+
+    print("""
+    *************************************
+    Press 1 To Play Game
+    Press 2 To see Rules
+    Press 3 To Exit
+    *************************************
+    """)
+    
+    option = int(input("1 or 2 or 3 \n"))
+
+    if option == 2:
+        print("""
     *************************************
            RULES :
       - 2 Player mode game. Player 1 to be alloted X and second player O
@@ -36,103 +71,45 @@ if option == 2:
     *************************************    
 
            """)
-    play = input(" #####TO PLAY GAME PRESS P#####\n")
+        input("#####TO PLAY GAME PRESS P#####\n")
 
-if option == 1 or play == "p" or play=="P":
-    #creating a 3x3 empty matrix as an interface for playing Tictactoe
-    space_matrix = pd.DataFrame([[' ' for _ in range(3)] for _ in range(3)])
-    print(space_matrix)
+    if option == 1 or input("Press 'P' to play: ").lower() == 'p':
+        # Initialize board
+        board = pd.DataFrame(np.full((3, 3), '|'))
+        print_board(board)
 
-    #variable declaration
-    i=0 #identifier if game is over or not, i.e all spaces filled or not
-    game_won = False #bollean field to break if game is won or not
+        # Player names
+        p1 = input("Player 1 name for symbol X: ")
+        p2 = input("Player 2 name for symbol O: ")
 
+        turns = 0
+        game_won = False
 
-    #input players
-    p1= input("Player first name for symbol X \n")
-    p2= input("Player second name for symbol O \n")
+        while turns < 9 and not game_won:
+            current_player = p1 if turns % 2 == 0 else p2
+            symbol = '|X' if turns % 2 == 0 else '|O'
 
-    #9 is the total inputs spaces
-    while i < 9:
-        j=1 #check variable. 1 is for player 1 and 0 is for player 2
-        if j== 1: #condition for player 1 to put X
+            # Get player input
+            row, col = get_player_input(current_player, board)
 
-            print("********player",p1,"***********")
-            row = int(input(f"enter the row (1, 2, or 3): ")) - 1 #row variable of matrix
-            col = int(input(f"enter the column (1, 2, or 3): ")) - 1 #column variable of matrix
+            # Make the move
+            board.iloc[row, col] = symbol
+            print_board(board)
 
-            if space_matrix.iloc[row, col] == ' ': #using only unoccupied spaces
-                space_matrix.iloc[row, col] = 'X' #assign the row and col
-                print(f"\nUpdated matrix after placing 'X':")
-                print(space_matrix)
-                i=i+1 #adding i value when space is filled
-                j = 0 #this signifies the next step is for player 2 to put O
-                #condition check if the game is won or not
-                for k in range(3): #if all X in any 3 consequtive rows
-                    if space_matrix.iloc[k, 0] == space_matrix.iloc[k, 1] == space_matrix.iloc[k, 2] == "X" :
-                        print("Player",p1, "wins")
-                        game_won= True
-                        break
-                for k in range(3): #if all X in any 3 consequtive rows
-                    if space_matrix.iloc[0, k] == space_matrix.iloc[1, k] == space_matrix.iloc[2, k] == "X" :
-                        print("Player",p1, "wins")
-                        game_won= True
-                        break
-                if space_matrix.iloc[0, 0] == space_matrix.iloc[1, 1] == space_matrix.iloc[2, 2] == "X": #if all X in first diagonal
-                        print("Player",p1, "wins")
-                        game_won= True
-                        break            
-                if space_matrix.iloc[0, 2] == space_matrix.iloc[1, 1] == space_matrix.iloc[2, 0] == "X": #if all X in another diagonal
-                        print("Player",p1, "wins")
-                        game_won= True
-                        break        
-            elif space_matrix.iloc[row, col]== 'X' or space_matrix.iloc[row, col] =='O' : #if user puts entry in a space where there is already a value
-                print("Invalid Entry, the space is already occupied")
-                j = 1
-            if game_won == True : #any point if the game is won
-                break
-        if i>= 9: #when all space is occupied and there is no winner
-            print("Draw")
-            break
-        if j== 0: #same above process repeated for player 2
-            print("********player",p2,"***********")
-            row = int(input(f"enter the row (1, 2, or 3): ")) - 1
-            col = int(input(f"enter the column (1, 2, or 3): ")) - 1  
-            if space_matrix.iloc[row, col] == ' ':
-                space_matrix.iloc[row, col] = 'O'
-                print(f"\nUpdated matrix after placing 'O':")
-                print(space_matrix)
-                i=i+1
-                j= 1
-                for k in range(3):
-                    if space_matrix.iloc[k, 0] == space_matrix.iloc[k, 1] == space_matrix.iloc[k, 2] == "O" :
-                        print("Player",p2, "wins")
-                        game_won= True
-                        break
-                for k in range(3):
-                    if space_matrix.iloc[0, k] == space_matrix.iloc[1, k] == space_matrix.iloc[2, k] == "O" :
-                        print("Player",p2, "wins")
-                        game_won= True
-                        break
-                if space_matrix.iloc[0, 0] == space_matrix.iloc[1, 1] == space_matrix.iloc[2, 2] == "O":
-                        print("Player",p2, "wins")
-                        game_won= True
-                        break            
-                if space_matrix.iloc[0, 2] == space_matrix.iloc[1, 1] == space_matrix.iloc[2, 0] == "O":
-                        print("Player",p2, "wins")
-                        game_won= True
-                        break       
-            elif space_matrix.iloc[row, col]== 'X' or space_matrix.iloc[row, col] =='O' :
-                print("Invalid Entry, the space is already occupied")
-                j = 0
-            if game_won == True :
-                break
-    #At the end 
-    print("Game Over")
-    #Reseting the board after game over
-    space_matrix = pd.DataFrame([[' ' for _ in range(3)] for _ in range(3)])
+            # Check for winner
+            if check_winner(board, symbol):
+                print(f"\n Player {current_player} wins!")
+                game_won = True
 
+            turns += 1
 
-if option == 3:
-     exit()
-     
+        if not game_won:
+            print("\n It's a draw!")
+
+        print("#######Game Over!########")
+
+    if option == 3:
+        exit()
+
+if __name__ == "__main__":
+    main()
